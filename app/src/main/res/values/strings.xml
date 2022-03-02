@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">AlarmApp</string>
+    <string name="txt_hello">Hello</string>
+    <string name="txt_welcome">Welcome in Smart Alarm</string>
+    <string name="txt_time_today">07.46</string>
+    <string name="txt_date_today">Sun,05 February 2022</string>
+    <string name="txt_alarm">Alarm</string>
+    <string name="txt_date_time_alarm">Thu 28 April 2022</string>
+    <string name="txt_delete">Delete</string>
+    <string name="txt_09_30">09.30</string>
+    <string name="txt_set_time">Set Time</string>
+    <string name="txt_set_your_alarm">Set Your Alarm</string>
+    <string name="txt_add_set_alarm">Add Set Alarm</string>
+    <string name="txt_note">Note</string>
+    <string name="txt_input_note">Input Note</string>
+
+</resources>
