@@ -1,22 +1,23 @@
 package com.rachel.alarmapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat.startActivity
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rachel.alarmapp.adapter.AlarmAdapter
 import com.rachel.alarmapp.room.AlarmDB
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var alarmAdapter: AlarmAdapter
     private lateinit var alarmReceiver: AlarmReceiver
-    val db by lazy { AlarmDB(this) }
+    private val db by lazy { AlarmDB(this) }
 
     // perubahan onStart menjadi onResume dilakukan untuk menghilangkan bug penambahan alarm
     // sehingga data akan diperbarui meskpiun MainActivity ini sebelumnya dalam kondisi onPause
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
     }
 
-    private fun initTimeToday() {
+    private fun initDateToday() {
         val dateNow: Date = Calendar.getInstance().time
         val dateFormat = SimpleDateFormat("E, dd MMM yyyy", Locale.getDefault())
         val formattedDate: String = dateFormat.format(dateNow)
@@ -52,11 +53,8 @@ class MainActivity : AppCompatActivity() {
         tv_date_today.text = formattedDate
     }
 
-}
 
-
-
-    private fun initDateToday() {
+    private fun initTimeToday() {
         val timeNow = Calendar.getInstance()
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val formattedTime = timeFormat.format(timeNow.time)
@@ -66,13 +64,10 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initAlarmType() {
-        view_set_one_time_alarm.setOnClickListener {
-            startActivity(Intent(this, OneTimeAlarmActivity::class.java))
+        btn_set_time.setOnClickListener {
+            startActivity(Intent(this, SetAlarm::class.java))
         }
 
-        view_set_repeating_alarm.setOnClickListener {
-            startActivity(Intent(this, RepeatingAlarmActivity::class.java))
-        }
     }
 
     private fun initRecyclerView() {
@@ -82,3 +77,5 @@ class MainActivity : AppCompatActivity() {
             adapter = alarmAdapter
         }
     }
+}
+

@@ -18,7 +18,13 @@ abstract class AlarmDB : RoomDatabase(){
         private var instance: AlarmDB? = null
         private var LOCK = Any()
 
-        operator fun invoke(context: Context) =
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
+            instance ?: buildDatabase(context).also{
+                instance = it
+            }
+        }
+
+        private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext, AlarmDB::class.java, "alarm12345.db")
                 .fallbackToDestructiveMigration()
                 .build()

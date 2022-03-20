@@ -97,49 +97,8 @@ class AlarmReceiver: BroadcastReceiver() {
         notificationManagerCompat.notify(notifId, notification)
     }
 
-    //Method(Obyek) untuk mengatur AlarmManager
-    //Terdapat sebuah intent yang akan menjalankan AlarmReceiver dan membawa data berupa alarm dan pesan
-    fun setOneTimeAlarm(context: Context, type: Int, date: String, time: String, message: String) {
-        if (isDateInvalid(date, DATE_FORMAT) || isDateInvalid(time, TIME_FORMAT)) return
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        //Intent ini akan menjalankan AlarmReceiver membawa data berupa alarm dan pesan
-        val intent = Intent(context, AlarmReceiver::class.java)
-        intent.putExtra(EXTRA_MESSAGE, message)
-        intent.putExtra(EXTRA_TYPE, type)
-        Log.e("ONE TIME", "$date $time")
-        val dateArray = date.split("-").toTypedArray()
-        val timeArray = time.split(":").toTypedArray()
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.YEAR, Integer.parseInt(dateArray[2]))
-        calendar.set(Calendar.MONTH, Integer.parseInt(dateArray[1]) - 1)
-        /*
-            mengapa pada code diatas data dikurangi 1 ?
-            misal tanggal yang dimasukkan adalah 2022-06-27
-            jika dipecah kita memproleh nilai 2022(tahun), 6(bulan), dan 27(hari)
-            Masalahnya nilai bulan ke 6 pada kelas Calendar bukan Juni. ini karena
-            Indexnya ini dimulai dari 0, untuk memperoleh
-            bulan juni, maka nilai 6 tadi harus kita kurangi -1
-        */
-        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateArray[0]))
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
-        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
-        calendar.set(Calendar.SECOND, 0)
 
-        //PendingIntent akan dieksekusi ketika waktu alarm sama
-        // dengan waktu pada sistem android
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_ONETIME, intent, 0)
-
-        /*
-        Maksud dari baris ini adalah kita memasang alarm dengan tipe RTC_WAKEUP
-        dimana tipe alarm ini dapat membangunkan perangkat
-        jika dalam posisi sleep untuk menjalankan PendingIntent
-        Jika kondisi sesuai makan BroadcastReceiver akan running dengan
-        semua proses yang terdapat didala method onReceive()
-        */
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-        Toast.makeText(context, "Succes Set Up One Time Alarm", Toast.LENGTH_SHORT).show()
-    }
 
     fun setRepeatingAlarm(
         context: Context,

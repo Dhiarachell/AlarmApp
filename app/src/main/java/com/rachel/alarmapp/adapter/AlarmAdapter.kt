@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.rachel.alarmapp.R
 import com.rachel.alarmapp.room.Alarm
+import kotlinx.android.synthetic.main.row_reminder_alarm.view.*
 
 class AlarmAdapter () : RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>() {
     class AlarmViewHolder (val view: View) : RecyclerView.ViewHolder(view)
@@ -32,28 +34,20 @@ class AlarmAdapter () : RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmViewHolder {
         return AlarmViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_row_reminder_alarm, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.row_reminder_alarm, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
         val alarm = alarms[position]
-        holder.view.item_time_alarm.text = alarm.time
-        holder.view.item_time_alarm.text = alarm.date
-        holder.view.item_time_alarm.text = alarm.note
+        holder.view.time_alam_2.text = alarm.time
+        holder.view.tv_date_alarm_2.text = alarm.date
+        holder.view.tv_note.text = alarm.note
 
-        when (alarm.type){
-            0 -> holder.view.item_img_one_time.loadImageDrawable(holder.view.context)
-            0 -> holder.view.item_img_one_time.loadImageDrawable(holder.view.context)
-
-        }
     }
 
     override fun getItemCount() = alarms.size
 
-    private fun ImageView.loadImageDrawable(context: Context, drawable: Int){
-        Glide.with(context).load(drawable).into(this)
-    }
 
 
 
