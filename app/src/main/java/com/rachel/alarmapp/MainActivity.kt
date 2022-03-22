@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var alarmAdapter: AlarmAdapter
     private lateinit var alarmReceiver: AlarmReceiver
-    private val db by lazy { AlarmDB(this) }
+    val db by lazy { AlarmDB(this) }
 
     // perubahan onStart menjadi onResume dilakukan untuk menghilangkan bug penambahan alarm
     // sehingga data akan diperbarui meskpiun MainActivity ini sebelumnya dalam kondisi onPause
